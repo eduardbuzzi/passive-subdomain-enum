@@ -10,16 +10,16 @@ RED='\033[1;31m'
 credits(){
 echo
 echo -e "${BOLD}===============================================${COLORF}"
-echo -e "${BOLD}Script developed by:${COLORF} ${BLUE}Eduardo Buzzi${COLORF}"
-echo -e "${BOLD}More Scripts in:${COLORF} ${RED}https://github.com/edubuzzi${COLORF}"
+echo -e "${BOLD} developed by:${COLORF} ${BLUE}Eduardo Buzzi${COLORF}"
+echo -e "${BOLD}More s in:${COLORF} ${RED}https://github.com/edubuzzi${COLORF}"
 echo -e "${BOLD}===============================================${COLORF}"
 }
 
 find_subdomains(){
 echo
 read -p "DOMAIN => " DOMAIN
-curl -s -C - -o $DOMAIN https://crt.sh/?q=$DOMAIN
-REQUEST=$(grep '<TD>' $DOMAIN | grep -v '<TD><A' | cut -d '>' -f2 | cut -d '<' -f1 | grep -v '*' | sort | uniq)
+curl -s -C - -o $DOMAIN https://securitytrails.com/list/apex_domain/$DOMAIN
+REQUEST=$(grep "href" $DOMAIN | tr ' ' '\n' | grep "</a></td>" | cut -d "/" -f3)
 if [ -z "$REQUEST" ]
 then
 echo
